@@ -67,7 +67,7 @@
     </div>
     <div class="panel">
       <label>67:</label>
-      <textarea id="s67" placeholder="66666/666677/66666777/66666/666777 [67] /6677/6/666677/667 ..."></textarea>
+      <textarea id="s67" placeholder="66666-666677-66666777-66666-666777 [67] -6677-6-666677-667 ..."></textarea>
       <div class="btn-row">
         <div class="btn-group">
           <button class="btn-small" onclick="copyS67()">Copy</button>
@@ -77,8 +77,8 @@
       </div>
     </div>
   </div>
-  <div class="footer">
-    © Yeson38 2026
+    <div class="footer">
+    © Yeson38 2026 | <a href="https://github.com/Yeson38/67Trans" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">GitHub</a>
   </div>
   <script>
     const engEl = document.getElementById('eng');
@@ -136,7 +136,7 @@
         const c = text[i];
         const p = pos(c);
         if (p > 0) {
-          if (out && !out.endsWith('/')) out += '/';
+          if (out && !out.endsWith('-')) out += '-';
           out += get67(p);
           i++;
           continue;
@@ -158,8 +158,8 @@
           out += has67 ? '[' + seq + ']' : seq;
           continue;
         }
-        if (c === '/') {
-          out += '[/]';
+        if (c === '-') {
+          out += '[-]';
         } else {
           out += c;
         }
@@ -172,7 +172,7 @@
       let result = '';
       let i = 0;
       while (i < text.length) {
-        if (text[i] === '/') {
+        if (text[i] === '-') {
           i++;
           continue;
         }
