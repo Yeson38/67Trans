@@ -1,1 +1,211 @@
-<h1>6767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>67 ↔ English</title>
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --panel-bg: white;
+      --text: #333;
+      --text-sec: #444;
+      --border: #e2e8f0;
+      --accent: #667eea;
+      --accent-dark: #764ba2;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a1a;
+      --panel-bg: #2a2a2a;
+      --text: #e0e0e0;
+      --text-sec: #b0b0b0;
+      --border: #404040;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; max-width: 1000px; margin: 0 auto; padding: 1.5rem; background: var(--bg); color: var(--text); line-height: 1.5; transition: all 0.3s; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .header h1 { margin: 0; font-size: 2rem; background: linear-gradient(90deg, var(--accent), var(--accent-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; flex-grow: 1; }
+    .theme-toggle { background: none; border: none; width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border-radius: 50%; transition: all 0.3s ease; position: relative; }
+    .theme-toggle::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--border); opacity: 0; transition: opacity 0.3s, transform 0.3s; }
+    .theme-toggle:hover::before { opacity: 1; transform: scale(1.1); }
+    .theme-toggle:hover { color: var(--accent); transform: scale(1.1); background: rgba(var(--accent), 0.1); }
+    .container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .panel { background: var(--panel-bg); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 4px 20px var(--shadow); }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-sec); }
+    textarea { width: 100%; min-height: 200px; padding: 1rem; border: 2px solid var(--border); border-radius: 0.5rem; font-family: 'Courier New', monospace; font-size: 14px; resize: vertical; background: var(--panel-bg); color: var(--text); transition: border-color 0.2s, background 0.3s, color 0.3s; }
+    textarea:focus { border-color: var(--accent); outline: none; }
+    .btn-row { display: flex; gap: 0.5rem; margin-top: 0.75rem; align-items: center; }
+    button.large-btn, .btn-small { padding: 0.875rem 1rem; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: white; border: none; border-radius: 0.5rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .large-btn { width: 100%; font-size: 1rem; flex: 2; }
+    .btn-group { display: flex; gap: 0.25rem; flex: 1; }
+    .btn-small { padding: 0.6rem 0.8rem; font-size: 0.8rem; background: var(--accent); opacity: 0.95; min-width: 60px; }
+    .btn-small:hover { opacity: 1; transform: translateY(-1px); }
+    .large-btn:hover { transform: translateY(-1px); }
+    .btn-small:active, .large-btn:active { transform: translateY(0); }
+    .footer { text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--text-sec); }
+    @media (max-width: 768px) { .container { grid-template-columns: 1fr; gap: 1rem; } body { padding: 1rem; } .btn-row { flex-direction: column; } .btn-group { order: -1; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>67 ↔ English</h1>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
+  </div>
+  <div class="container">
+    <div class="panel">
+      <label>English:</label>
+      <textarea id="eng" placeholder="Enter English text..."></textarea>
+      <div class="btn-row">
+        <div class="btn-group">
+          <button class="btn-small" onclick="copyEng()">Copy</button>
+          <button class="btn-small" onclick="pasteToEng()">Paste</button>
+        </div>
+        <button class="large-btn" onclick="to67()">→ 67</button>
+      </div>
+    </div>
+    <div class="panel">
+      <label>67:</label>
+      <textarea id="s67" placeholder="66666/666677/66666777/66666/666777 [67] /6677/6/666677/667 ..."></textarea>
+      <div class="btn-row">
+        <div class="btn-group">
+          <button class="btn-small" onclick="copyS67()">Copy</button>
+          <button class="btn-small" onclick="pasteToS67()">Paste</button>
+        </div>
+        <button class="large-btn" onclick="toEng()">← English</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    © Yeson38 2026
+  </div>
+  <script>
+    const engEl = document.getElementById('eng');
+    const s67El = document.getElementById('s67');
+    const themeBtn = document.getElementById('themeBtn');
+
+    // Theme
+    const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    themeBtn.textContent = isDark ? '☀️' : '🌙';
+
+    function toggleTheme() {
+      const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Clipboard
+    async function copy(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {}
+    }
+
+    async function pasteTo(el) {
+      try {
+        const text = await navigator.clipboard.readText();
+        el.value = text;
+        if (el === engEl) to67();
+        else toEng();
+      } catch (e) {}
+    }
+
+    function copyEng() { copy(engEl.value); }
+    function pasteToEng() { pasteTo(engEl); }
+    function copyS67() { copy(s67El.value); }
+    function pasteToS67() { pasteTo(s67El); }
+
+    function pos(c) {
+      const code = c.toUpperCase().charCodeAt(0);
+      return code >= 65 && code <= 90 ? code - 64 : 0;
+    }
+
+    function get67(p) {
+      let x = Math.floor((p - 1) / 5);
+      let y = p - 5 * x;
+      return '6'.repeat(y) + '7'.repeat(x);
+    }
+
+    function encode(text) {
+      let out = '';
+      let i = 0;
+      while (i < text.length) {
+        const c = text[i];
+        const p = pos(c);
+        if (p > 0) {
+          if (out && !out.endsWith('/')) out += '/';
+          out += get67(p);
+          i++;
+          continue;
+        }
+        if (/[67]/.test(c)) {
+          out += '[';
+          while (i < text.length && /[67]/.test(text[i])) out += text[i++];
+          out += ']';
+          continue;
+        }
+        if (/\d/.test(c)) {
+          let seq = '';
+          let has67 = false;
+          while (i < text.length && /\d/.test(text[i])) {
+            seq += text[i];
+            if (text[i] === '6' || text[i] === '7') has67 = true;
+            i++;
+          }
+          out += has67 ? '[' + seq + ']' : seq;
+          continue;
+        }
+        out += c;
+        i++;
+      }
+      return out;
+    }
+
+    function decode(text) {
+      let result = '';
+      let i = 0;
+      while (i < text.length) {
+        if (text[i] === '/') {
+          i++;
+          continue;
+        }
+        if (text[i] === '[') {
+          let j = text.indexOf(']', i + 1);
+          if (j !== -1) {
+            result += text.slice(i + 1, j);
+            i = j + 1;
+            continue;
+          }
+        }
+        let k = i;
+        let y = 0, x = 0;
+        while (k < text.length && (text[k] === '6' || text[k] === '7')) {
+          if (text[k] === '6') y++;
+          else x++;
+          k++;
+        }
+        if (k > i) {
+          const p = 5 * x + y;
+          if (p >= 1 && p <= 26) {
+            result += String.fromCharCode(64 + p).toLowerCase();
+            i = k;
+            continue;
+          }
+        }
+        result += text[i];
+        i++;
+      }
+      return result;
+    }
+
+    function to67() { s67El.value = encode(engEl.value); }
+    function toEng() { engEl.value = decode(s67El.value); }
+
+    engEl.oninput = to67;
+    s67El.oninput = toEng;
+  </script>
+</body>
+</html>
