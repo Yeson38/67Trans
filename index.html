@@ -158,7 +158,11 @@
           out += has67 ? '[' + seq + ']' : seq;
           continue;
         }
-        out += c;
+        if (c === '/') {
+          out += '[/]';
+        } else {
+          out += c;
+        }
         i++;
       }
       return out;
@@ -175,7 +179,12 @@
         if (text[i] === '[') {
           let j = text.indexOf(']', i + 1);
           if (j !== -1) {
-            result += text.slice(i + 1, j);
+            const content = text.slice(i + 1, j);
+            if (content === '/') {
+              result += '/';
+            } else {
+              result += content;
+            }
             i = j + 1;
             continue;
           }
